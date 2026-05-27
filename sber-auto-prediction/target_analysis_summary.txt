@@ -1,0 +1,14 @@
+ АНАЛИЗ ЦЕЛЕВОЙ ПЕРЕМЕННОЙ
+==================================================
+
+Всего сессий: 1,860,042
+Целевых сессий: 50,254
+Конверсия: 2.70%
+Соотношение классов: 36.0:1
+
+Целевые события (5):
+     sub_car_claim_click
+     sub_open_dialog_click
+     sub_submit_success
+     sub_car_claim_submit_click
+     sub_custom_question_submit_click
