@@ -1,0 +1,19 @@
+{
+  "utm_source": "google",
+  "utm_medium": "cpc",
+  "utm_campaign": "campaign_123",
+  "device_category": "desktop",
+  "device_os": "Windows",
+  "device_browser": "Chrome",
+  "geo_country": "Russia",
+  "geo_city": "Moscow",
+  "visit_number": 1,
+  "hit_count": 15,
+  "unique_pages": 8,
+  "event_count": 5,
+  "is_organic": 0,
+  "screen_area": 2073600,
+  "hour": 14,
+  "day_of_week": 2,
+  "month": 3
+}
