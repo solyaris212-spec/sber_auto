@@ -76,45 +76,55 @@ async def startup_event():
 class VisitInput(BaseModel):
     """
     Схема входных данных для одного визита.
-    Все поля соответствуют признакам, использованным при обучении модели.
+    Содержит ТОЛЬКО сырые признаки, которые пользователь может предоставить.
+    Все производные признаки вычисляются автоматически.
     """
-    # === UTM-параметры ===
+    # === Сырые UTM-параметры ===
     utm_source: str = Field(..., description="Источник трафика, например: yandex, google")
     utm_medium: str = Field(..., description="Тип трафика: organic, cpc, referral и др.")
     utm_campaign: str = Field(..., description="Название рекламной кампании")
     utm_adcontent: str = Field(..., description="Идентификатор рекламного контента")
     utm_keyword: str = Field(..., description="Ключевое слово поиска")
     
-    # === Характеристики устройства ===
+    # === Сырые характеристики устройства ===
     device_category: str = Field(..., description="Тип устройства: desktop, mobile, tablet")
     device_os: str = Field(..., description="Операционная система")
     device_brand: str = Field(..., description="Бренд устройства")
     device_browser: str = Field(..., description="Браузер пользователя")
-    device_screen_resolution: Optional[str] = Field(None, description="Разрешение экрана, например: 1920x1080")
+    device_screen_resolution: Optional[str] = Field(
+        None, 
+        description="Разрешение экрана в формате 'ШхВ', например: '1920x1080'"
+    )
     
-    # === Геолокация ===
+    # === Сырая геолокация ===
     geo_country: str = Field(..., description="Страна пользователя")
     geo_city: str = Field(..., description="Город пользователя")
     
-    # === Временные признаки (вычисляются автоматически, но можно передать) ===
-    visit_date: Optional[str] = Field(None, description="Дата визита в формате YYYY-MM-DD")
-    visit_time: Optional[str] = Field(None, description="Время визита в формате HH:MM:SS")
+    # === Сырые временные метки (строки) ===
+    visit_date: Optional[str] = Field(
+        None, 
+        description="Дата визита в формате YYYY-MM-DD (вычисляет час, день недели и т.д.)"
+    )
+    visit_time: Optional[str] = Field(
+        None, 
+        description="Время визита в формате HH:MM:SS (вычисляет hour, is_night и т.д.)"
+    )
     
-    # === Признаки поведения (агрегированные из ga_hits) ===
+    # === Сырые поведенческие признаки (агрегированные из ga_hits) ===
     visit_number: int = Field(..., ge=1, description="Номер визита пользователя")
     hit_count: int = Field(..., ge=0, description="Общее количество событий (хитов) в сессии")
     unique_pages: int = Field(..., ge=0, description="Количество уникальных просмотренных страниц")
     event_count: int = Field(..., ge=0, description="Количество событий с event_action")
     avg_time_between_hits: float = Field(..., ge=0, description="Среднее время между хитами в секундах")
     
-    # === Флаги событий (has_event_*) — топ-20 наиболее частых ===
-    # Укажите здесь актуальные названия из вашего датасета
+    # === Сырые флаги событий (has_event_*) — топ-20 наиболее частых ===
+    # Эти флаги формируются при агрегации логов, пользователь/клиент передаёт их как есть
     has_event_view_card: Optional[int] = Field(0, ge=0, le=1)
     has_event_view_new_card: Optional[int] = Field(0, ge=0, le=1)
     has_event_sub_landing: Optional[int] = Field(0, ge=0, le=1)
     has_event_go_to_car_card: Optional[int] = Field(0, ge=0, le=1)
     has_event_sub_view_cars_click: Optional[int] = Field(0, ge=0, le=1)
-    # Добавьте остальные has_event_* признаки по необходимости
+    # Добавьте остальные has_event_* признаки по необходимости из вашего датасета
     # ...
     
     # === Производные признаки (вычисляются автоматически, но можно переопределить) ===
