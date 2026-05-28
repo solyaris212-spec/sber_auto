@@ -41,11 +41,11 @@
    pip install -r requirements.txt
 
 5. Убедитесь, что в текущей директории находятся следующие файлы артефактов модели:
-predict_api.py — файл с запуском сервера
-final_model_step3_4.pkl — обученная модель
-preprocessor.pkl — препроцессор признаков
-feature_info.pkl — метаданные признаков
-optimal_threshold.pkl — порог классификации
+ predict_api.py — файл с запуском сервера
+ final_model_step3_4.pkl — обученная модель
+ preprocessor.pkl — препроцессор признаков
+ feature_info.pkl — метаданные признаков
+ optimal_threshold.pkl — порог классификации
 
 7. Запустите сервер:
 uvicorn predict_api:app --host 0.0.0.0 --port 8000
